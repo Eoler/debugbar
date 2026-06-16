@@ -42,6 +42,20 @@ Or create `config/debugbar.php` manually. See the [default configuration](config
 
 AJAX requests are captured by the debugbar automatically and displayed in the toolbar dropdown. To disable this, set `capture_ajax` to `false` in `config/debugbar.php`.
 
+## Troubleshooting
+
+### Out of memory errors
+
+If the debugbar causes out-of-memory errors, the `cache` collector is the most common cause on requests that perform many cache reads. It is disabled by default; if you have enabled it, set it back to `false` in `config/debugbar.php`:
+
+```php
+'collectors' => [
+    'cache' => env('DEBUGBAR_COLLECTORS_CACHE', false), // Display cache events
+],
+```
+
+The `models`, `views`, and `events` collectors can also significantly increase memory usage and are disabled by default for the same reason.
+
 ## License
 
 October CMS Debugbar is open-sourced software licensed under the [MIT license](LICENSE.md).
